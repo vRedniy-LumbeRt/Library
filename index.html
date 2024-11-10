@@ -1,424 +1,197 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-    <meta charset="UTF-8">
-    <title>Список книг</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-        <style>
-            * {
-                box-sizing: border-box;
-                margin: 0;
-                padding: 0;
-                font-family: Arial, sans-serif;
-            }
+<head>
+  <meta charset="UTF-8">
+  <title>Карточка книги</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
 
-            body {
-                background: linear-gradient(135deg, #e09, #3023ae);
-                color: #333;
-                display: flex;
-                flex-direction: column;
-                justify-content: flex-start;
-                align-items: center;
-                min-height: 100vh;
-                padding: 2rem;
-            }
+    body {
+      background: linear-gradient(135deg, #e09, #3023ae);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
 
-            h1 {
-                text-align: center;
-                color: #fff;
-                margin-bottom: 1rem;
-            }
+    .card {
+      padding: 2rem;
+      border-radius: 10px;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      position: relative;
+      margin-top: 3rem;
+      background-color: rgba(255, 255, 255, 0.55);
+      animation: pulse 3s infinite;
+    }
 
-            .container {
-                width: 100%;
-                max-width: 1200px;
-                padding: 2rem;
-                background-color: rgba(255, 255, 255, 0.3);
-                border-radius: 10px;
-                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-                animation: pulse 3s infinite;
-            }
+    h1 {
+      margin-bottom: 1rem;
+      color: #fff;
+      text-align: center;
+    }
 
-            .panel {
-                display: flex;
-                justify-content: center;
-                margin-bottom: 2rem;
-                background-color: rgba(255, 255, 255, 0.55);
-                border-radius: 10px;
-                transition: transform 0.3s ease;
-            }
+    p {
+      margin: 0.5rem 0;
+    }
 
-            .panel:hover {
-                transform: translateY(-10px);
-            }
+    .status {
+      font-weight: bold;
+      margin: 1rem 0;
+    }
 
-            .panel > * {
-                margin-right: 1rem;
-            }
+    .status.out-of-stock {
+      color: #dc3545;
+    }
 
-            .panel > :last-child {
-                margin-right: 0;
-            }
+    .form-section {
+      margin: 2rem 0;
+    }
 
-            form {
-                display: flex;
-                gap: 1rem;
-            }
+    input[type="text"], input[type="date"] {
+      width: 100%;
+      padding: 0.7rem;
+      border: 1px solid darkblue;
+      border-radius: 5px;
+      animation: pulse 5s infinite;
+    }
 
-            label {
-                font-size: 1rem;
-                color: #333;
-                display: block;
-            }
+    button {
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(45deg, #3023ae, #e09);
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
 
-            input, select, button {
-                padding: 0.7rem;
-                font-size: 1rem;
-                border: 1px solid darkblue;
-                border-radius: 5px;
-                outline: none;
-            }
+    /* Специфичные стили для диалога */
+    dialog {
+      width: 400px;
+      padding: 2.5rem;
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: none;
+      overflow: hidden;
+      z-index: 999;
+      text-align: center;
+    }
 
-            button {
-                padding: 0.7rem 1.5rem;
-                font-size: 1rem;
-                border: none;
-                border-radius: 30px;
-                background: linear-gradient(45deg, #3023ae, #e09);
-                color: white;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                position: relative;
-                overflow: hidden;
-                text-transform: uppercase;
-                font-weight: bold;
-                letter-spacing: 1px;
-            }
+    dialog::backdrop {
+      background: rgba(0, 0, 0, 0.5);
+    }
 
-            .button span {
-                position: relative;
-                z-index: 1;
-            }
+    dialog form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      width: 100%;
+      align-items: center;
+    }
 
-            button::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: linear-gradient(to right, transparent, #e09);
-                transform: scaleX(0);
-                transition: transform 0.3s ease-out;
-            }
+    dialog h2 {
+      margin-bottom: 1.2rem;
+      text-align: center;
+    }
 
-            button:hover {
-                background-position: calc(100% + 200px) 0;
-            }
+    dialog input,
+    dialog select {
+      width: 100%;
+      padding: 0.7rem;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      outline: none;
+      animation: pulse 3s infinite;
+    }
 
-            button:hover span {
-                transform: translateX(200px);
-            }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 82, 15, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(255, 82, 15, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 82, 15, 0); }
+    }
 
-            button:hover::before {
-                transform: scaleX(1);
-            }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-            .book-container {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-                gap: 2rem;
-            }
-
-            .book {
-                background-color: rgba(255, 255, 255, 0.55);
-                border-radius: 10px;
-                padding: 1rem;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                transition: all 0.2s ease-in-out;
-                position: relative;
-                overflow: hidden;
-            }
-
-            .book::after {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: linear-gradient(to right, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.8));
-                transform: scaleX(0);
-                transition: transform 0.2s ease-in-out;
-                z-index: -1;
-            }
-
-            .book:hover {
-                transform: translateY(-10px);
-                background-color: rgba(255, 255, 255, 0.8);
-                animation: glowPulse 3s ease-in-out infinite;
-            }
-
-            .book:hover::after {
-                transform: scaleX(1);
-            }
-
-            .book h3 {
-                font-size: 1.2rem;
-                margin-bottom: 0.5rem;
-                color: #333;
-            }
-
-            .book p {
-                font-size: 0.9rem;
-                color: #666;
-            }
-
-            .status {
-                font-weight: bold;
-                margin: 1rem 0;
-            }
-
-            .actions {
-                display: flex;
-                gap: 0.5rem;
-            }
-
-            .actions button {
-                width: auto;
-                padding: 0.5rem 1rem;
-            }
-
-            .actions button i {
-                margin-right: 0.5rem;
-            }
-
-            /* Специфичные стили для диалога */
-            dialog {
-                width: 400px;
-                padding: 2.5rem;
-                border-radius: 10px;
-                background: #fff;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                border: none;
-                overflow: hidden;
-                z-index: 999;
-                text-align: center;
-            }
-
-            dialog::backdrop {
-                background: rgba(0, 0, 0, 0.5);
-            }
-
-            dialog form {
-                display: flex;
-                flex-direction: column;
-                gap: 1.2rem;
-                width: 100%;
-                align-items: center;
-            }
-
-            dialog h2 {
-                margin-bottom: 1.2rem;
-                text-align: center;
-            }
-
-            dialog input,
-            dialog select {
-                width: 100%;
-                padding: 0.7rem;
-                font-size: 1rem;
-                border-radius: 5px;
-                border: 1px solid #ddd;
-                outline: none;
-                animation: pulse 3s infinite;
-            }
-
-            .filter-input input[type="date"] {
-                padding-right: 35px;
-            }
-
-            .add-book-input input[name="publishedDate"] {
-                padding-right: 35px;
-            }
-
-            /* Стили для кнопок действий */
-            .actions button {
-                transition: all 0.3s ease;
-            }
-
-            .actions button:hover {
-                transform: scale(1.05);
-                background-color: #e09;
-            }
-
-            @keyframes pulse {
-                0% { box-shadow: 0 0 0 0 rgba(255, 82, 15, 0.7); }
-                70% { box-shadow: 0 0 0 10px rgba(255, 82, 15, 0); }
-                100% { box-shadow: 0 0 0 0 rgba(255, 82, 15, 0); }
-            }
-
-            @keyframes glowPulse {
-                0% {
-                    box-shadow: 0 0 0px 0 rgba(255, 82, 15, 0.7), 0 0 0px 0 rgba(224, 9, 125, 0.7);
-                    transform: scale(1);
-                }
-                50% {
-                    box-shadow: 0 0 20px 10px rgba(255, 82, 15, 0.5), 0 0 30px 20px rgba(224, 9, 125, 0.4);
-                    transform: scale(1.05);
-                }
-                100% {
-                    box-shadow: 0 0 0px 0 rgba(255, 82, 15, 0.7), 0 0 0px 0 rgba(224, 9, 125, 0.7);
-                    transform: scale(1);
-                }
-            }
-
-        </style>
+  </style>
 </head>
 <body>
-<div class="container">
-    <h1>Список книг</h1>
 
-    <!-- Панель фильтров и добавления -->
-    <div class="panel">
-        <!-- Кнопка для открытия модального окна фильтров -->
-        <button id="filterButton">Фильтры</button>
-        <!-- Кнопка для очистки фильтров -->
-        <button type="button" onclick="clearFilters()">Очистить фильтры</button>
-        <!-- Кнопка для открытия модального окна добавления книги -->
-        <button id="addBookButton">Добавить книгу</button>
-    </div>
-
-    <!-- Список книг -->
-    <div class="book-container">
-        <div class="book">
-            <h3>Название книги 1</h3>
-            <p><strong>Автор:</strong> Автор 1</p>
-            <p><strong>Дата выпуска:</strong> 2021-05-15</p>
-            <div class="status">
-                Статус: В наличии
-            </div>
-            <div class="actions">
-                <button onclick="window.location.href='/books/1'">
-                    <i class="fas fa-eye"></i> Просмотр
-                </button>
-                <button type="button" onclick="confirmDelete(1)">
-                    <i class="fas fa-trash"></i> Удалить
-                </button>
-            </div>
-        </div>
-
-        <div class="book">
-            <h3>Название книги 2</h3>
-            <p><strong>Автор:</strong> Автор 2</p>
-            <p><strong>Дата выпуска:</strong> 2020-09-10</p>
-            <div class="status">
-                Статус: На руках
-            </div>
-            <div class="actions">
-                <button onclick="window.location.href='/books/2'">
-                    <i class="fas fa-eye"></i> Просмотр
-                </button>
-                <button type="button" onclick="confirmDelete(2)">
-                    <i class="fas fa-trash"></i> Удалить
-                </button>
-            </div>
-        </div>
-
-        <div class="book">
-            <h3>Название книги 3</h3>
-            <p><strong>Автор:</strong> Автор 3</p>
-            <p><strong>Дата выпуска:</strong> 2018-03-22</p>
-            <div class="status">
-                Статус: В наличии
-            </div>
-            <div class="actions">
-                <button onclick="window.location.href='/books/3'">
-                    <i class="fas fa-eye"></i> Просмотр
-                </button>
-                <button type="button" onclick="confirmDelete(3)">
-                    <i class="fas fa-trash"></i> Удалить
-                </button>
-            </div>
-        </div>
-    </div>
+<div class="actions">
+  <button class="back-button" onclick="window.location.href='/books'">
+    <i class="fas fa-arrow-left"></i> Назад к библиотеке
+  </button>
 </div>
 
-<!-- Размытие фона -->
-<div id="overlay" class="overlay"></div>
+<div class="card">
 
-<!-- Модальное окно для фильтров -->
-<dialog id="filterDialog">
-    <h2>Фильтры</h2>
-    <form method="GET" action="/books">
-        <div>
-            <label>Дата возврата:</label>
-            <input type="date" name="returnDate">
-        </div>
-        <div>
-            <label>В наличии:</label>
-            <select name="available">
-                <option value="">Все</option>
-                <option value="true">В наличии</option>
-                <option value="false">На руках</option>
-            </select>
-        </div>
-        <div class="actions">
-            <button type="submit">Применить</button>
-            <button type="button" onclick="closeFilterDialog()">Закрыть</button>
-        </div>
-    </form>
-</dialog>
+  <h1>Преступление и наказание — Фёдор Достоевский</h1>
+  <p>Дата выпуска: 1866-01-01</p>
+  <p class="status out-of-stock">Статус: На руках</p>
 
-<!-- Модальное окно для добавления книги -->
-<dialog id="addBookDialog">
-    <h2>Добавить книгу</h2>
+  <div class="actions">
+    <button id="borrowerInfo" onclick="document.getElementById('borrowerDialog').showModal();">Информация о заёмщике</button>
+  </div>
+
+  <dialog id="borrowerDialog">
+    <h2>Информация о заёмщике</h2>
+    <p><strong>Имя:</strong> Иван Иванов</p>
+    <p><strong>Дата возврата:</strong> 2024-11-15</p>
+    <div class="dialog-actions">
+      <button onclick="document.getElementById('borrowerDialog').close()">Закрыть</button>
+    </div>
+  </dialog>
+
+  <div class="form-section">
+    <h2>Редактировать книгу</h2>
     <form action="/books" method="POST">
-        <input type="hidden" name="action" value="add">
-
-            <label for="title">Название:</label>
-            <input type="text" name="title" id="title" required>
-
-                <label for="author">Автор:</label>
-                <input type="text" name="author" id="author" required>
-
-                    <label for="publishedDate">Дата выпуска:</label>
-                    <input type="date" name="publishedDate" id="publishedDate" required>
-
-                        <div class="actions">
-                            <button type="submit">Добавить</button>
-                            <button type="button" onclick="closeDialog()">Закрыть</button>
-                        </div>
+      <input type="hidden" name="action" value="update">
+      <input type="hidden" name="id" value="1">
+      <label>Автор:
+        <input type="text" name="author" value="Фёдор Достоевский">
+      </label>
+      <label>Дата выпуска:
+        <input type="date" name="publishedDate" value="1866-01-01">
+      </label>
+      <div class="actions" style="margin-top: 1rem;">
+        <button type="submit">Сохранить изменения</button>
+      </div>
     </form>
-</dialog>
+  </div>
 
-<script>
-    // Скрипты для открытия и закрытия диалогов
-    document.getElementById('filterButton').addEventListener('click', () => {
-    document.getElementById('filterDialog').showModal();
-});
-    document.getElementById('addBookButton').addEventListener('click', () => {
-    document.getElementById('addBookDialog').showModal();
-});
-    function closeFilterDialog() {
-    document.getElementById('filterDialog').close();
-}
-    function closeDialog() {
-    document.getElementById('addBookDialog').close();
-}
-    function confirmDelete(bookId) {
-    if (confirm('Вы уверены, что хотите удалить эту книгу?')) {
-    // Имитация удаления для демо-целей
-    alert(`Книга с ID ${bookId} удалена.`);
-}
-}
-</script>
+  <form action="/books/return" method="POST">
+    <input type="hidden" name="id" value="1">
+    <div class="actions">
+      <button type="submit">Вернуть книгу</button>
+    </div>
+  </form>
+</div>
+
 </body>
 </html>
