@@ -1,0 +1,191 @@
+[
+  {
+    "id": 3,
+    "title": "Преступление и наказание",
+    "author": "Фёдор Достоевский",
+    "publishedDate": "1866-01-01",
+    "available": true,
+    "borrower": null,
+    "dueDate": null
+  },
+  {
+    "id": 4,
+    "title": "Мастер и Маргарита",
+    "author": "Михаил Булгаков",
+    "publishedDate": "1967-01-01",
+    "available": true,
+    "borrower": null,
+    "dueDate": null
+  },
+  {
+    "id": 5,
+    "title": "Анна Каренина",
+    "author": "Лев Толстой",
+    "publishedDate": "1877-01-01",
+    "available": true,
+    "borrower": null,
+    "dueDate": null
+  },
+  {
+    "id": 6,
+    "title": "Идиот",
+    "author": "Фёдор Достоевский",
+    "publishedDate": "1869-01-01",
+    "available": true,
+    "borrower": null,
+    "dueDate": null
+  },
+  {
+    "id": 7,
+    "title": "Отцы и дети",
+    "author": "Иван Тургенев",
+    "publishedDate": "1862-01-01",
+    "available": false,
+    "borrower": "Александр Смирнов",
+    "dueDate": "2024-11-18"
+  },
+  {
+    "id": 8,
+    "title": "Мёртвые души",
+    "author": "Николай Гоголь",
+    "publishedDate": "1842-01-01",
+    "available": true,
+    "borrower": null,
+    "dueDate": null
+  },
+  {
+    "id": 9,
+    "title": "Тихий Дон",
+    "author": "Михаил Шолохов",
+    "publishedDate": "1940-01-01",
+    "available": false,
+    "borrower": "Мария Волкова",
+    "dueDate": "2024-11-22"
+  },
+  {
+    "id": 10,
+    "title": "Белая гвардия",
+    "author": "Михаил Булгаков",
+    "publishedDate": "1925-01-01",
+    "available": true,
+    "borrower": null,
+    "dueDate": null
+  },
+  {
+    "id": 11,
+    "title": "Двенадцать стульев",
+    "author": "Илья Ильф, Евгений Петров",
+    "publishedDate": "1928-01-01",
+    "available": false,
+    "borrower": "Сергей Попов",
+    "dueDate": "2024-11-30"
+  },
+  {
+    "id": 12,
+    "title": "Золотой телёнок",
+    "author": "Илья Ильф, Евгений Петров",
+    "publishedDate": "1931-01-01",
+    "available": true,
+    "borrower": null,
+    "dueDate": null
+  },
+  {
+    "id": 13,
+    "title": "Доктор Живаго",
+    "author": "Борис Пастернак",
+    "publishedDate": "1957-01-01",
+    "available": false,
+    "borrower": "Ирина Кузнецова",
+    "dueDate": "2024-11-25"
+  },
+  {
+    "id": 14,
+    "title": "Обломов",
+    "author": "Иван Гончаров",
+    "publishedDate": "1859-01-01",
+    "available": true,
+    "borrower": null,
+    "dueDate": null
+  },
+  {
+    "id": 15,
+    "title": "Собачье сердце",
+    "author": "Михаил Булгаков",
+    "publishedDate": "1925-01-01",
+    "available": false,
+    "borrower": "Ольга Васильева",
+    "dueDate": "2024-12-05"
+  },
+  {
+    "id": 16,
+    "title": "Палата №6",
+    "author": "Антон Чехов",
+    "publishedDate": "1892-01-01",
+    "available": true,
+    "borrower": null,
+    "dueDate": null
+  },
+  {
+    "id": 17,
+    "title": "Человек-амфибия",
+    "author": "Александр Беляев",
+    "publishedDate": "1928-01-01",
+    "available": false,
+    "borrower": "Евгений Фёдоров",
+    "dueDate": "2024-12-01"
+  },
+  {
+    "id": 18,
+    "title": "Руслан и Людмила",
+    "author": "Александр Пушкин",
+    "publishedDate": "1820-01-01",
+    "available": true,
+    "borrower": null,
+    "dueDate": null
+  },
+  {
+    "id": 19,
+    "title": "Чапаев",
+    "author": "Дмитрий Фурманов",
+    "publishedDate": "1923-01-01",
+    "available": false,
+    "borrower": "Виктория Лебедева",
+    "dueDate": "2024-12-10"
+  },
+  {
+    "id": 20,
+    "title": "Судьба человека",
+    "author": "Михаил Шолохов",
+    "publishedDate": "1957-01-01",
+    "available": true,
+    "borrower": null,
+    "dueDate": null
+  },
+  {
+    "id": 21,
+    "title": "Аэлита",
+    "author": "Алексей Толстой",
+    "publishedDate": "1923-01-01",
+    "available": false,
+    "borrower": "Дмитрий Алексеев",
+    "dueDate": "2024-12-15"
+  },
+  {
+    "id": 22,
+    "title": "Дети Арбата",
+    "author": "Анатолий Рыбаков",
+    "publishedDate": "1987-01-01",
+    "available": true,
+    "borrower": null,
+    "dueDate": null
+  },
+  {
+    "id": 23,
+    "title": "Лолита",
+    "author": "Владимир Набоков",
+    "publishedDate": "1955-01-01",
+    "available": false,
+    "borrower": "Анна Сидорова",
+    "dueDate": "2024-12-12"
+  }
+]

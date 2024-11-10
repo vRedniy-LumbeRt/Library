@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Пример EJS</title>
+</head>
+<body>
+<h1>Добро пожаловать на наш сайт!</h1>
+<p>Текущий пользователь: <%= user ? user.name : 'Гость' %></p>
+<ul>
+    <% items.forEach(function(item) { %>
+        <li><%= item %></li>
+    <% }); %>
+</ul>
+</body>
+</html>
